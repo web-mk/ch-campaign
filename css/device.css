@@ -37,7 +37,7 @@
     .motto_heading h1 {
         font-size: 8.5rem;
     }
-    #chestnut_hill .section_heading h1, .slogan_heading h1, .campaign_heading h1 {
+    #chestnut_hill .section_heading h1, #home_about .section_heading h1, .slogan_heading h1, .campaign_heading h1 {
         font-size: 6.75rem;
     }
     h1 {
@@ -114,7 +114,7 @@
     .motto_heading h1 {
         font-size: 8rem;
     }
-    #chestnut_hill .section_heading h1, .slogan_heading h1, .campaign_heading h1 {
+    #chestnut_hill .section_heading h1, #home_about .section_heading h1, .slogan_heading h1, .campaign_heading h1 {
         font-size: 6.25rem;
     }
     h1 {
@@ -228,7 +228,10 @@
     .motto_heading h1 {
         font-size: 8.35rem;
     }
-    #chestnut_hill .section_heading h1, .slogan_heading h1, .campaign_heading h1 {
+    .motto_items {
+        padding-top: 100px;
+    }
+    #chestnut_hill .section_heading h1, #home_about .section_heading h1, .slogan_heading h1, .campaign_heading h1 {
         font-size: 6.65rem;
     }
     h1 {
@@ -271,6 +274,9 @@
     .chestnut_bg {
         height: 80vh;
     }
+    #home_about {
+        min-height: 75vh;
+    }
     .floor_plan_list {
         width: 85%;
     }
@@ -300,7 +306,7 @@
     .motto_heading h1 {
         font-size: 6.75rem;
     }
-    #chestnut_hill .section_heading h1, .slogan_heading h1, .campaign_heading h1 {
+    #chestnut_hill .section_heading h1, #home_about .section_heading h1, .slogan_heading h1, .campaign_heading h1 {
         font-size: 5.65rem;
     }
     h1 {
@@ -502,7 +508,13 @@
 /* Portrait : Ipad mini */
 @media only screen and (orientation : portrait) and (-webkit-min-device-pixel-ratio: 1) and (min-device-width : 768px) and (max-device-width : 900px) {
     .chestnut_bg {
-        height: 90vh;
+        height: 85vh;
+    }
+    #home_about {
+        min-height: 75vh;
+    }
+    .motto_items {
+        padding-top: 60px;
     }
 }
 
@@ -656,7 +668,7 @@
     .motto_heading h1 {
         font-size: 4.5rem;
     }
-    #chestnut_hill .section_heading h1, .slogan_heading h1, .campaign_heading h1 {
+    #chestnut_hill .section_heading h1, #home_about .section_heading h1, .slogan_heading h1, .campaign_heading h1 {
         font-size: 3.5rem;
         line-height: 1;
     }
@@ -862,8 +874,8 @@
     }
 
     /* Chestnut */
-    .chestnut_bg {
-        height: 110vh;
+    .chestnut_bg, .home_about {
+        height: 90vh;
     }
     .building_details {
         flex-direction: column;
@@ -875,6 +887,10 @@
     }
     .building_highlight_image img:last-child {
         display: none;
+    }
+    #home_about {
+        align-items: flex-start;
+        min-height: 85vh;
     }
 
     /* Floor Plan */
@@ -1037,5 +1053,9 @@
     /* Footer */
     .footer_address, .footer_phone {
         font-size: .95rem;
+    }
+
+    .motto_items {
+        padding-top: 110px;
     }
 }
