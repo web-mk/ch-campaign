@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Chestnut Hill</title>
+    <title>Together We Build | Chabad at Chestnut Hill</title>
 
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/device.css">
@@ -23,44 +23,6 @@
             <!-- Header -->
             <header>
                 
-                <!-- Top Header -->
-                <div class="top_header">
-                    <div class="container">
-                        <div class="flexbox jc_space_between">
-
-                            <!-- Logo -->
-                            <div class="logo">
-                                <a href="index.html">
-                                    <img src="./images/logo_primary.svg" alt="">
-                                </a>
-                            </div>
-
-                            <!-- Nav -->
-                            <nav class="top_nav">
-                                <ul>
-                                    <li><a href="about.html">About</a></li>
-                                    <li><a href="#">Adults</a></li>
-                                    <li><a href="#">Community</a></li>
-                                    <li><a href="#">youth</a></li>
-                                    <li><a href="#">Upcoming</a></li>
-                                    <li>
-                                        <a href="#" class="btn_menu">
-                                            <img src="./icons/heart.svg" alt="">
-                                            <span>Donate</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-
-                            <!-- Hamburger for Mobile Menu -->
-                            <div class="hamburger top_burger">
-                                <div class="lineOne"></div>
-                                <div class="lineTwo"></div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Main Header -->
                 <div class="main_header">
@@ -245,9 +207,58 @@
                                     </div>
                                 </div>
 
-                                <!-- Floor Plan Image -->
-                                <div class="floor_plan_large_image">
-                                    <img src="./images/floor_plan.png" alt="">
+                                <!-- Floor Plan Carousel -->
+                                <div class="floor_plans_carousel" data-carousel-index="0">
+
+                                    <div class="tabs_gallery_carousel">
+
+                                        <!-- Floor Plan Large 01 -->
+                                        <div class="floor_plan_large_image">
+                                            <img src="./images/floor_01.jpg" alt="">
+                                        </div>
+
+                                        <!-- Floor Plan Large 02 -->
+                                        <div class="floor_plan_large_image">
+                                            <img src="./images/floor_02.jpg" alt="">
+                                        </div>
+
+                                        <!-- Floor Plan Large 03 -->
+                                        <div class="floor_plan_large_image">
+                                            <img src="./images/floor_03.jpg" alt="">
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Tabs Gallery Controller -->
+                                    <div class="tab_progress flexbox jc_space_between" data-carousel-index="0">
+
+                                        <!-- Navigation Arrow -->
+                                        <div class="navigation_arrow">
+                                            <div class="nav_arrow right slider__arrow--prev tabs_gallery_arrow" data-carousel-index="0">
+                                                <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.5 15L8.82188 13.6781L3.59063 8.4375L15 8.4375L15 6.5625L3.59063 6.5625L8.82188 1.32188L7.5 2.98004e-07L1.60935e-06 7.5L7.5 15Z" fill="#191919"/>
+                                                </svg>
+                                                <span>Prev</span>
+                                            </div>
+                                        </div>
+            
+                                        <!-- Progress Bar -->
+                                        <div class="progress_bar">
+                                            <div class="progress progressbar1"></div>
+                                        </div>
+            
+                                        <!-- Navigation Arrow -->
+                                        <div class="navigation_arrow">
+                                            <div class="nav_arrow left slider__arrow--next tabs_gallery_arrow" data-carousel-index="0">
+                                                <span>Next</span>
+                                                <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.5 15L8.82188 13.6781L3.59063 8.4375L15 8.4375L15 6.5625L3.59063 6.5625L8.82188 1.32188L7.5 2.98004e-07L1.60935e-06 7.5L7.5 15Z" fill="#191919"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+            
+                                    </div>
+
                                 </div>
 
                                 <!-- Floor Features -->
@@ -332,58 +343,9 @@
                                         <!-- Floor Plan Carousel -->
                                         <div class="col_7">
 
-                                            <div class="floor_plan_carousel" data-carousel-index="0">
-
-                                                <!-- Tabs Gallery -->
-                                                <div class="tabs_gallery_carousel">
-
-                                                    <!-- Gallery 01 -->
-                                                    <div class="tabs_gallery_image">
-                                                        <img src="./images/floor_plan_01.jpg" alt="">
-                                                    </div>
-                        
-                                                    <!-- Gallery 02 -->
-                                                    <div class="tabs_gallery_image">
-                                                        <img src="./images/floor_plan_01.jpg" alt="">
-                                                    </div>
-                        
-                                                    <!-- Gallery 03 -->
-                                                    <div class="tabs_gallery_image">
-                                                        <img src="./images/floor_plan_01.jpg" alt="">
-                                                    </div>
-                        
-                                                </div>
-
-                                                <!-- Tabs Gallery Controller -->
-                                                <div class="tab_progress flexbox jc_space_between" data-carousel-index="0">
-
-                                                    <!-- Navigation Arrow -->
-                                                    <div class="navigation_arrow">
-                                                        <div class="nav_arrow right slider__arrow--prev tabs_gallery_arrow" data-carousel-index="0">
-                                                            <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M7.5 15L8.82188 13.6781L3.59063 8.4375L15 8.4375L15 6.5625L3.59063 6.5625L8.82188 1.32188L7.5 2.98004e-07L1.60935e-06 7.5L7.5 15Z" fill="#191919"/>
-                                                            </svg>
-                                                            <span>Prev</span>
-                                                        </div>
-                                                    </div>
-                        
-                                                    <!-- Progress Bar -->
-                                                    <div class="progress_bar">
-                                                        <div class="progress progressbar1"></div>
-                                                    </div>
-                        
-                                                    <!-- Navigation Arrow -->
-                                                    <div class="navigation_arrow">
-                                                        <div class="nav_arrow left slider__arrow--next tabs_gallery_arrow" data-carousel-index="0">
-                                                            <span>Next</span>
-                                                            <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M7.5 15L8.82188 13.6781L3.59063 8.4375L15 8.4375L15 6.5625L3.59063 6.5625L8.82188 1.32188L7.5 2.98004e-07L1.60935e-06 7.5L7.5 15Z" fill="#191919"/>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                        
-                                                </div>
-                                                
+                                            <!-- Gallery 01 -->
+                                            <div class="tabs_gallery_image">
+                                                <img src="./images/floor_plan_01.jpg" alt="">
                                             </div>
 
                                         </div>
@@ -475,58 +437,9 @@
                                         <!-- Floor Plan Carousel -->
                                         <div class="col_7">
 
-                                            <div class="floor_plan_carousel" data-carousel-index="1">
-
-                                                <!-- Tabs Gallery -->
-                                                <div class="tabs_gallery_carousel">
-
-                                                    <!-- Gallery 01 -->
-                                                    <div class="tabs_gallery_image">
-                                                        <img src="./images/gallery_4.jpg" alt="">
-                                                    </div>
-                        
-                                                    <!-- Gallery 02 -->
-                                                    <div class="tabs_gallery_image">
-                                                        <img src="./images/gallery_5.jpg" alt="">
-                                                    </div>
-                        
-                                                    <!-- Gallery 03 -->
-                                                    <div class="tabs_gallery_image">
-                                                        <img src="./images/gallery_1.jpg" alt="">
-                                                    </div>
-                        
-                                                </div>
-
-                                                <!-- Tabs Gallery Controller -->
-                                                <div class="tab_progress flexbox jc_space_between" data-carousel-index="1">
-
-                                                    <!-- Navigation Arrow -->
-                                                    <div class="navigation_arrow">
-                                                        <div class="nav_arrow right slider__arrow--prev tabs_gallery_arrow" data-carousel-index="1">
-                                                            <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M7.5 15L8.82188 13.6781L3.59063 8.4375L15 8.4375L15 6.5625L3.59063 6.5625L8.82188 1.32188L7.5 2.98004e-07L1.60935e-06 7.5L7.5 15Z" fill="#191919"/>
-                                                            </svg>
-                                                            <span>Prev</span>
-                                                        </div>
-                                                    </div>
-                        
-                                                    <!-- Progress Bar -->
-                                                    <div class="progress_bar">
-                                                        <div class="progress"></div>
-                                                    </div>
-                        
-                                                    <!-- Navigation Arrow -->
-                                                    <div class="navigation_arrow">
-                                                        <div class="nav_arrow left slider__arrow--next tabs_gallery_arrow" data-carousel-index="1">
-                                                            <span>Next</span>
-                                                            <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M7.5 15L8.82188 13.6781L3.59063 8.4375L15 8.4375L15 6.5625L3.59063 6.5625L8.82188 1.32188L7.5 2.98004e-07L1.60935e-06 7.5L7.5 15Z" fill="#191919"/>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                        
-                                                </div>
-                                                
+                                            <!-- Gallery 02 -->
+                                            <div class="tabs_gallery_image">
+                                                <img src="./images/sanctuary.png" alt="">
                                             </div>
 
                                         </div>
@@ -598,58 +511,9 @@
                                         <!-- Floor Plan Carousel -->
                                         <div class="col_7">
 
-                                            <div class="floor_plan_carousel" data-carousel-index="2">
-
-                                                <!-- Tabs Gallery -->
-                                                <div class="tabs_gallery_carousel">
-
-                                                    <!-- Gallery 01 -->
-                                                    <div class="tabs_gallery_image">
-                                                        <img src="./images/gallery_1.jpg" alt="">
-                                                    </div>
-                        
-                                                    <!-- Gallery 02 -->
-                                                    <div class="tabs_gallery_image">
-                                                        <img src="./images/gallery_2.jpg" alt="">
-                                                    </div>
-                        
-                                                    <!-- Gallery 03 -->
-                                                    <div class="tabs_gallery_image">
-                                                        <img src="./images/gallery_4.jpg" alt="">
-                                                    </div>
-                        
-                                                </div>
-
-                                                <!-- Tabs Gallery Controller -->
-                                                <div class="tab_progress flexbox jc_space_between" data-carousel-index="2">
-
-                                                    <!-- Navigation Arrow -->
-                                                    <div class="navigation_arrow">
-                                                        <div class="nav_arrow right slider__arrow--prev tabs_gallery_arrow" data-carousel-index="2">
-                                                            <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M7.5 15L8.82188 13.6781L3.59063 8.4375L15 8.4375L15 6.5625L3.59063 6.5625L8.82188 1.32188L7.5 2.98004e-07L1.60935e-06 7.5L7.5 15Z" fill="#191919"/>
-                                                            </svg>
-                                                            <span>Prev</span>
-                                                        </div>
-                                                    </div>
-                        
-                                                    <!-- Progress Bar -->
-                                                    <div class="progress_bar">
-                                                        <div class="progress"></div>
-                                                    </div>
-                        
-                                                    <!-- Navigation Arrow -->
-                                                    <div class="navigation_arrow">
-                                                        <div class="nav_arrow left slider__arrow--next tabs_gallery_arrow" data-carousel-index="2">
-                                                            <span>Next</span>
-                                                            <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M7.5 15L8.82188 13.6781L3.59063 8.4375L15 8.4375L15 6.5625L3.59063 6.5625L8.82188 1.32188L7.5 2.98004e-07L1.60935e-06 7.5L7.5 15Z" fill="#191919"/>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                        
-                                                </div>
-                                                
+                                            <!-- Gallery 03 -->
+                                            <div class="tabs_gallery_image">
+                                                <img src="./images/building.jpg" alt="">
                                             </div>
 
                                         </div>
@@ -1853,23 +1717,22 @@
                 </div>
             </section>
 
-            <!-- Footer -->
-            <footer>
+             <!-- Footer -->
+             <footer>
                 <div class="chabad_footer">
                     <div class="container">
   
                         <div class="chabad_footer_items">
-                            <h6>Chabad of the Space &amp; Treasure Coasts</h6>
-                            <span class="footer_address">1190 Highway A1A&nbsp;&nbsp;Satellite Beach, FL 32937</span> <br>
-                            <span class="footer_phone">321-777-2770</span>
-                            <p class="copyright_info">
-                                Powered by&nbsp;<a href="#">Chabad.org</a>&nbsp;© 1993-2024&nbsp;<a href="#">Privacy Policy</a>
-                            </p>
+                            <h6>Chabad at Chestnut Hill</h6>
+                            <span class="footer_address">163 Bellingham Road
+                                &nbsp;&nbsp;Chestnut Hill, MA 02467</span> <br>
+                            <span class="footer_phone">617-738-9770</span>
+                           
                             <div class="footer_socials">
-                                <a href="#">
+                                <a href="https://www.instagram.com/chabad_chestnuthill">
                                     <img src="./icons/instagram.svg" alt="">
                                 </a>
-                                <a href="#">
+                                <a href="https://www.facebook.com/chabadch">
                                     <img src="./icons/facebook.svg" alt="">
                                 </a>
                             </div>

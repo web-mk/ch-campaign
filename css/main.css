@@ -980,7 +980,8 @@ img.border {
     position: relative;
     height: 100%;
     width: 100%;
-    background: linear-gradient(180deg, #FFF 0%, #F4F4F4 18.37%);
+    /* background: linear-gradient(180deg, #FFF 0%, #F4F4F4 18.37%); */
+    background-color: var(--primaryLight);
 }
 .floor_plans .sec_gap {
     padding-top: 0;
@@ -996,7 +997,10 @@ img.border {
 }
 .floor_features {
     position: relative;
-    margin-top: 60px;
+    margin-top: 70px;
+}
+.floor_plans .tab_progress {
+    padding-top: 20px;
 }
 .floor_feature_sub_heading h6 {
     color: var(--cinnamon);
@@ -1016,7 +1020,7 @@ img.border {
     width: 51%;
 }
 .floor_features .single_floor_feature:nth-child(2) .floor_feature_box {
-    background-color: var(--primaryLight);
+    background-color: var(--bg);
 }
 .floor_feature_box_items {
     padding: 35px 40px;
@@ -1246,7 +1250,11 @@ span.project_price {
     position: relative;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, #D36C7A 7.03%, #ECE7D6 79.35%);
+    /* background: linear-gradient(180deg, #D36C7A 7.03%, #ECE7D6 79.35%); */
+    background-color: var(--grey);
+}
+#dedication .sec_gap {
+    padding: 150px 0;
 }
 .dedication_heading h1 {
     color: var(--primaryLight)
