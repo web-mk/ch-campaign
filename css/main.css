@@ -1320,6 +1320,11 @@ span.project_price {
   transition: 0.2s linear;
   width: auto;
 }
+
+.donation_item.reserved {
+  opacity: 0.5;
+  pointer-events: none;
+}
 .donation_item input {
   display: none;
 }
