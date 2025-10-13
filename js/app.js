@@ -310,6 +310,295 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // ======================= Dedications Dynamic Loader =======================
+  // Set this to your JSON endpoint that returns { range, majorDimension, values: [...] }
+  // (Google Sheets API or Apps Script that returns the "values" matrix.)
+  const DEDICATIONS_URL =
+    "https://us-central1-torah-campaigns.cloudfunctions.net/donor-tally?id=1e4sQHHSWjnIoSaPZt7a2__Wq52siWNqdDlVJWe3-cZM&range=A1:I300";
+
+  function slugify(str) {
+    return String(str || "")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .replace(/-{2,}/g, "-");
+  }
+
+  function safeInt(v) {
+    if (v === null || v === undefined || v === "") return null;
+    const n = Number(v);
+    return isFinite(n) ? Math.floor(n) : null;
+  }
+
+  function formatMoneyShort(usd, priceType) {
+    if (usd == null || isNaN(usd)) return "";
+    let n = Number(usd);
+    let suffix = "";
+    const abs = Math.abs(n);
+    if (abs >= 1_000_000) { n = n / 1_000_000; suffix = "m"; }
+    else if (abs >= 1_000) { n = n / 1_000; suffix = "k"; }
+    const s = (Math.round(n * 10) % 10 === 0)
+      ? String(Math.round(n))
+      : String(Math.round(n * 10) / 10);
+    return "$" + s + suffix + (priceType === "plus" ? "+" : "");
+  }
+
+  function rowsFromGoogleValuesPayload(payload) {
+    // payload.values = [ [header...], [row...], ... ]
+    const values = (payload && payload.values) || [];
+    if (!values.length) return [];
+    const headers = values[0].map((h) => String(h || "").trim());
+    return values.slice(1).map((arr) => {
+      const obj = {};
+      headers.forEach((h, i) => (obj[h] = arr[i] !== undefined ? arr[i] : ""));
+      return obj;
+    });
+  }
+
+  function normalize(rows) {
+    // Expect minimal schema columns:
+    // category_label, item_name, price_usd, price_type, status, availability_total, availability_reserved, notes, display_order
+    return rows.map((r) => {
+      const price_usd = safeInt(r.price_usd);
+      const price_type = String(r.price_type || "fixed").toLowerCase() === "plus" ? "plus" : "fixed";
+      const status = String(r.status || "available").toLowerCase() === "reserved" ? "reserved" : "available";
+      const availability_total = safeInt(r.availability_total);
+      const availability_reserved = safeInt(r.availability_reserved);
+      const availability_available =
+        availability_total != null ? Math.max((availability_total || 0) - (availability_reserved || 0), 0) : null;
+
+      return {
+        category_label: r.category_label || "",
+        category_key: slugify(r.category_label || ""),
+        item_name: r.item_name || "",
+        item_key: slugify(r.item_name || ""),
+        price_usd: price_usd,
+        price_type: price_type,
+        price_display: formatMoneyShort(price_usd, price_type),
+        status: status,
+        availability_total: availability_total,
+        availability_reserved: availability_reserved,
+        availability_available: availability_available,
+        notes: r.notes || "",
+        display_order: safeInt(r.display_order),
+      };
+    });
+  }
+
+  function groupByCategory(items) {
+    const map = {};
+    items.forEach((it) => {
+      const key = it.category_label || "Other";
+      (map[key] = map[key] || []).push(it);
+    });
+    Object.keys(map).forEach((k) => {
+      map[k].sort((a, b) => {
+        const ao = a.display_order, bo = b.display_order;
+        if (ao == null && bo == null) return 0;
+        if (ao == null) return 1;
+        if (bo == null) return -1;
+        return ao - bo;
+      });
+    });
+    return map;
+  }
+
+  function render(root, grouped) {
+    const frag = document.createDocumentFragment();
+    
+    // Create tab buttons container
+    const tabBtns = document.createElement("div");
+    tabBtns.className = "donate_tab_btns";
+    
+    const categories = Object.keys(grouped);
+    categories.forEach((category_label, idx) => {
+      const catKey = slugify(category_label);
+      const btn = document.createElement("button");
+      btn.className = "tab_btn" + (idx === 0 ? " active" : "");
+      btn.setAttribute("data-tab", catKey);
+      const h4 = document.createElement("h4");
+      h4.appendChild(document.createTextNode(category_label));
+      btn.appendChild(h4);
+      tabBtns.appendChild(btn);
+    });
+    
+    frag.appendChild(tabBtns);
+    
+    // Create tab contents container
+    const tabContents = document.createElement("div");
+    tabContents.className = "donation_tab_contents";
+    
+    const tabContentItems = document.createElement("div");
+    tabContentItems.className = "donation_tab_content_items";
+    
+    categories.forEach((category_label, idx) => {
+      const catKey = slugify(category_label);
+      const tabContent = document.createElement("div");
+      tabContent.className = "tab_content" + (idx === 0 ? " active" : "");
+      tabContent.id = catKey;
+      
+      // Donation Options container
+      const donationOptions = document.createElement("div");
+      donationOptions.className = "donation_options";
+      
+      grouped[category_label].forEach((item, itemIdx) => {
+        const itemId = "item_" + catKey + "_" + itemIdx;
+        
+        // Donation Item
+        const donationItem = document.createElement("div");
+        donationItem.className = "donation_item" + (item.status === "reserved" ? " reserved" : "");
+        
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.id = itemId;
+        input.name = "donation";
+        input.value = item.item_name + (item.price_display ? " - " + item.price_display : "");
+        if (item.status === "reserved") input.disabled = true;
+        
+        const label = document.createElement("label");
+        label.setAttribute("for", itemId);
+        if (!item.price_display) {
+          label.className = "no_price";
+        }
+        
+        const donationBox = document.createElement("span");
+        donationBox.className = "donation_box";
+        
+        // Check if we need donation_flex wrapper (for reserved items or availability)
+        if (item.status === "reserved" || item.availability_total != null) {
+          const donationFlex = document.createElement("span");
+          donationFlex.className = "donation_flex";
+          
+          const itemName = document.createElement("p");
+          itemName.appendChild(document.createTextNode(item.item_name));
+          donationFlex.appendChild(itemName);
+          
+          if (item.status === "reserved" || item.availability_total != null) {
+            const seat = document.createElement("span");
+            seat.className = "seat";
+            if (item.status === "reserved") {
+              seat.appendChild(document.createTextNode("Reserved"));
+            } else if (item.availability_total != null) {
+              const availText = item.availability_available + " available";
+              seat.appendChild(document.createTextNode(availText));
+            }
+            donationFlex.appendChild(seat);
+          }
+          
+          donationBox.appendChild(donationFlex);
+        } else {
+          const itemName = document.createElement("p");
+          itemName.appendChild(document.createTextNode(item.item_name));
+          donationBox.appendChild(itemName);
+        }
+        
+        if (item.price_display) {
+          const price = document.createElement("h5");
+          price.className = "price";
+          price.appendChild(document.createTextNode(item.price_display));
+          donationBox.appendChild(price);
+        }
+        
+        label.appendChild(donationBox);
+        
+        donationItem.appendChild(input);
+        donationItem.appendChild(label);
+        donationOptions.appendChild(donationItem);
+      });
+      
+      // Add checkout button after items
+      const checkoutButton = document.createElement("div");
+      checkoutButton.className = "checkout_button";
+      const button = document.createElement("button");
+      button.setAttribute("onclick", "checkout()");
+      const h5 = document.createElement("h5");
+      h5.appendChild(document.createTextNode("make an impact"));
+      const span = document.createElement("span");
+      const img = document.createElement("img");
+      img.src = "./icons/arrow.svg";
+      img.alt = "";
+      span.appendChild(img);
+      button.appendChild(h5);
+      button.appendChild(span);
+      checkoutButton.appendChild(button);
+      donationOptions.appendChild(checkoutButton);
+      
+      tabContent.appendChild(donationOptions);
+      tabContentItems.appendChild(tabContent);
+    });
+    
+    tabContents.appendChild(tabContentItems);
+    frag.appendChild(tabContents);
+    
+    while (root.firstChild) root.removeChild(root.firstChild);
+    root.appendChild(frag);
+  }
+
+  async function loadDedications() {
+    const root = document.getElementById("dedications-root");
+    if (!root) return;
+    try {
+      const res = await fetch(DEDICATIONS_URL, { cache: "no-store" });
+      const ct = (res.headers.get("content-type") || "").toLowerCase();
+      let rows = [];
+      if (ct.indexOf("application/json") !== -1) {
+        const payload = await res.json();
+        rows = rowsFromGoogleValuesPayload(payload);
+      } else {
+        // Fallback: some endpoints return JSON as text
+        const text = await res.text();
+        try {
+          const payload = JSON.parse(text);
+          rows = rowsFromGoogleValuesPayload(payload);
+        } catch (e) {
+          throw new Error("Unexpected non-JSON response for dedications");
+        }
+      }
+      const items = normalize(rows);
+      const grouped = groupByCategory(items);
+      render(root, grouped);
+      
+      // Re-initialize tab functionality for dynamically loaded tabs
+      initializeDedicationTabs();
+    } catch (err) {
+      console.error("Dedications render error:", err);
+      if (root) root.innerHTML = "<div class='dedications-error'>Unable to load dedications.</div>";
+    }
+  }
+
+  function initializeDedicationTabs() {
+    const dedicationTabGroup = document.querySelector("#dedications-root");
+    if (!dedicationTabGroup) return;
+    
+    const buttons = dedicationTabGroup.querySelectorAll(".tab_btn");
+    const contents = dedicationTabGroup.querySelectorAll(".tab_content");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const tabId = button.getAttribute("data-tab");
+
+        // Remove active class from all buttons and contents
+        buttons.forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        contents.forEach((content) => {
+          content.classList.remove("active");
+        });
+
+        // Add active class to the clicked button and corresponding content
+        button.classList.add("active");
+        const targetContent = document.getElementById(tabId);
+        if (targetContent) {
+          targetContent.classList.add("active");
+        }
+      });
+    });
+  }
+
+  loadDedications();
+
+
   // =======================
   // Navigation Menu (Both Pages)
   // =======================
