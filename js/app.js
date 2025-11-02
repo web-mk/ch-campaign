@@ -648,7 +648,7 @@ function checkout() {
   `).show();
 
   setTimeout(() => {
-    const iframe = document.querySelector('.basicLightbox__content iframe');
+    const iframe = document.querySelector('.basicLightbox iframe');
     iframe.contentWindow.postMessage(selectedValues, '*');
   }, 1000);
 }
