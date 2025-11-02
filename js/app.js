@@ -598,7 +598,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loadDedications();
 
-
   // =======================
   // Navigation Menu (Both Pages)
   // =======================
@@ -632,3 +631,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
   navMenu();
 });
+
+// Checkout Button
+function checkout() {
+  const selectedItems = document.querySelectorAll(
+    'input[name="donation"]:checked',
+  );
+  const selectedValues = [];
+  selectedItems.forEach((item) => {
+    selectedValues.push(item.value);
+  });
+  console.log("Selected Donation Items:", selectedValues);
+
+  basicLightbox.create(`
+    <iframe src="https://www.chabadch.com/templates/articlecco_cdo/aid/7074383/jewish/Building-Campaign.htm" width="560" height="90%" frameborder="0"></iframe>
+  `).show();
+
+  setTimeout(() => {
+    const iframe = document.querySelector('.basicLightbox__content iframe');
+    iframe.contentWindow.postMessage(selectedValues, '*');
+  }, 1000);
+}

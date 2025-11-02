@@ -927,24 +927,5 @@
     <script src="./js/locomotive-scroll.min.js"></script>
     <script src="./js/scroll.js"></script>
     <script src="./js/app.js"></script>
-
-    <script>
-      // Checkout Button
-      function checkout() {
-        const selectedItems = document.querySelectorAll(
-          'input[name="donation"]:checked',
-        );
-        const selectedValues = [];
-        selectedItems.forEach((item) => {
-          selectedValues.push(item.value);
-        });
-        console.log("Selected Donation Items:", selectedValues);
-
-        basicLightbox.create(`
-          <iframe src="https://www.chabadch.com/templates/articlecco_cdo/aid/7074383/jewish/Building-Campaign.htm" width="560" height="90%" frameborder="0"></iframe>
-        `).show();
-        // Redirect or pass the selectedValues to another page or process it as needed
-      }
-    </script>
   </body>
 </html>
